@@ -1,0 +1,24 @@
+def dfs(puzzle, current, words):
+    if not puzzle:
+        return True
+    if current in words:
+        return dfs(puzzle, "", words)
+    for i in range(len(puzzle)):
+        if puzzle[i] in current or puzzle[i] == '+':
+            continue
+        if dfs(puzzle[:i] + puzzle[i+1:], current + puzzle[i], words):
+            return True
+    return False
+
+def solve(puzzle, words):
+    puzzle = puzzle.replace(" ", "")
+    words = set(words)
+    return dfs(puzzle, "", words)
+
+puzzle = "SEND + MORE = MONEY"
+words = "SEND", "MORE", "MONEY"
+
+if solve(puzzle, words):
+    print("Puzzle is solvable.")
+else:
+    print("Puzzle is not solvable.")

@@ -1,0 +1,10 @@
+import itertools
+
+def tsp(cities):
+    return min([(sum(distance(path[i], path[i-1]) for i in range(len(path))), path) for path in itertools.permutations(cities)])
+
+def distance(city1, city2):
+    return ((city1[0] - city2[0]) * 2 + (city1[1] - city2[1]) * 2) ** 0.5
+
+cities = [(0,0), (1,1), (2,2), (3,3)]
+print(tsp(cities))

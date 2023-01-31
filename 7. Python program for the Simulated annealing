@@ -1,0 +1,13 @@
+import random
+import math
+
+def simulated_annealing(problem, T=100, cooling_rate=0.95):
+    current = problem.initial()
+    while T > 1e-10:
+        neighbors = problem.neighbors(current)
+        next_state = random.choice(neighbors)
+        delta = problem.value(next_state) - problem.value(current)
+        if delta > 0 or math.exp(delta / T) > random.uniform(0, 1):
+            current = next_state
+        T *= cooling_rate
+    return current

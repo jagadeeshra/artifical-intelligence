@@ -1,0 +1,44 @@
+board = [[' ' for x in range(3)] for y in range(3)]
+player = 'X'
+
+def print_board():
+    for row in board:
+        print("|".join(row))
+    print()
+
+def check_winner():
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] != ' ':
+            return board[i][0]
+        if board[0][i] == board[1][i] == board[2][i] != ' ':
+            return board[0][i]
+
+    if board[0][0] == board[1][1] == board[2][2] != ' ':
+        return board[0][0]
+    if board[0][2] == board[1][1] == board[2][0] != ' ':
+        return board[0][2]
+    return None
+
+def game_over():
+    if check_winner() != None:
+        print(check_winner(), "wins!")
+        return True
+    for row in board:
+        for cell in row:
+            if cell == ' ':
+                return False
+    print("Tie!")
+    return True
+
+while not game_over():
+    print_board()
+    row = int(input("Enter row for " + player + ": "))
+    col = int(input("Enter col for " + player + ": "))
+    if board[row][col] == ' ':
+        board[row][col] = player
+        if player == 'X':
+            player = 'O'
+        else:
+            player = 'X'
+    else:
+        print("Invalid move, try again.")
